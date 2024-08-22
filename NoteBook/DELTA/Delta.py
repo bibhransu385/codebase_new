@@ -5,7 +5,7 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE TABLE IF NOT EXISTS lakehouse_dev.default.test_table1(
+# MAGIC CREATE TABLE IF NOT EXISTS test.default.test_table1(
 # MAGIC   id INT,
 # MAGIC   name STRING,
 # MAGIC   age INT,
@@ -14,17 +14,17 @@
 # MAGIC   salary FLOAT
 # MAGIC )
 # MAGIC USING DELTA
-# MAGIC LOCATION 's3://prudhvi-08052024-test/test_table1'
+# MAGIC LOCATION 's3://s3-databrick24/test_table1'
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC DESCRIBE HISTORY lakehouse_dev.default.test_table1
+# MAGIC DESCRIBE HISTORY test.default.test_table1
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC INSERT INTO lakehouse_dev.default.test_table1 VALUES (1, 'John', 30, 'New York', 'NY', 100000.0)
+# MAGIC INSERT INTO test.default.test_table1 VALUES (1, 'John', 30, 'New York', 'NY', 100000.0)
 
 # COMMAND ----------
 
@@ -32,17 +32,20 @@
 
 # COMMAND ----------
 
-display(spark.read.parquet("s3://prudhvi-08052024-test/json/part-00000-26c6dee6-96ba-4ca5-bef6-f316581a4b8b-c000.snappy.parquet"))
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC INSERT INTO lakehouse_dev.default.test_table1 VALUES (2, 'Prudhvi', 32, 'Rajahmundry', 'RJY', 10000.0)
+display(spark.read.parquet("s3://s3-databrick24/test_table1/part-00000-bbc4f8aa-e57c-4fd2-baa0-f3de17ecf90d-c000.snappy.parquet"))
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from lakehouse_dev.default.test_table1
+# MAGIC INSERT INTO test.default.test_table1 VALUES (2, 'Prudhvi', 32, 'Rajahmundry', 'RJY', 10000.0);
+# MAGIC INSERT INTO test.default.test_table1 VALUES (2, 'Prudhvi', 32, 'Rajahmundry', 'RJY', 10000.0);
+# MAGIC INSERT INTO test.default.test_table1 VALUES (2, 'Prudhvi', 32, 'Rajahmundry', 'RJY', 10000.0);
+# MAGIC INSERT INTO test.default.test_table1 VALUES (2, 'Prudhvi', 32, 'Rajahmundry', 'RJY', 10000.0);
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM test.default.test_table1 VERSION AS OF 1;
 
 # COMMAND ----------
 
@@ -66,7 +69,7 @@ display(spark.read.parquet("s3://prudhvi-08052024-test/json/part-00000-26c6dee6-
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC UPDATE lakehouse_dev.default.test_table1 SET age = 33 WHERE id = 1
+# MAGIC UPDATE test.default.test_table1 SET age = 33 WHERE id = 1
 
 # COMMAND ----------
 
@@ -81,12 +84,12 @@ display(spark.read.parquet("s3://prudhvi-08052024-test/json/part-00000-26c6dee6-
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC ALTER TABLE lakehouse_dev.default.test_table1 SET TBLPROPERTIES ("spark.databricks.delta.retentionDurationCheck.enabled"="false");
+# MAGIC ALTER TABLE test.default.test_table1 SET TBLPROPERTIES ("spark.databricks.delta.retentionDurationCheck.enabled"="false");
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC VACUUM lakehouse_dev.default.test_table1
+# MAGIC VACUUM test.default.test_table1
 
 # COMMAND ----------
 

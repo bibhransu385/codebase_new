@@ -57,12 +57,12 @@ def write_partitions_data(df, database_name, table_name,write_mode, partition_co
 folder_prefixes = ["allergies", "claims_transcations", "claims", "paitents", "payers"]
 
 # Specify the source and destination S3 bucket names
-source_bucket_name = 'prudhvi-08052024-test'
-destination_bucket_name = 'prudhvi-08052024-test'
+source_bucket_name = 's3-databrick24'
+destination_bucket_name = 's3-databrick24'
 
 # Define the catalog and schema names for the database
-catalog_name = 'lakehouse_dev'
-schema_name = 'health_care'
+catalog_name = 'test'
+schema_name = 'sample'
 
 # Set the write mode for saving data
 write_mode = "overwrite"
@@ -78,6 +78,7 @@ options = {
 # COMMAND ----------
 
 table_name = f"{catalog_name}.{schema_name}.claims_transcations"
+display(table_name)
 
 # COMMAND ----------
 
